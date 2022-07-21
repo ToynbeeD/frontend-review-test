@@ -1,29 +1,30 @@
 <template>
   <div id="app">
-    <Header :cart="cart" :currency="currency"></Header>
-    <List :currency="currency"/>
-    <Cart :cart="cart"/>
+    <MyHeader :currency="currency" />
+    <main>
+      <ProductList :currency="currency"/>
+      <ProductCart :currency="currency"/>
+    </main>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
-import List from './components/List.vue';
-import Cart from './components/Cart.vue';
+import MyHeader from '@/components/MyHeader.vue';
+import ProductList from '@/components/ProductList.vue';
+import ProductCart from '@/components/ProductCart.vue';
 
 export default {
   name: 'App',
+  components: {
+    MyHeader,
+    ProductList,
+    ProductCart,
+  },
   data() {
     return {
-      cart: [],
       currency: 'VGTB',
     };
-  },
-  components: {
-    Header,
-    List,
-    Cart,
-  },
+  }
 }
 </script>
 
@@ -32,6 +33,10 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
 }
 
 #app {

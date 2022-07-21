@@ -5,13 +5,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    productsList: [],
+    productsCart: []
   },
   mutations: {
+    createProductList(state, products) {
+      state.productsList = products
+    },
+    addProductToCart(state, product) {
+      state.productsCart.push(product)
+    }
   },
   actions: {
-    getProductsList(ctx, data) {
-      return api.getProductsList();
-    },
+    async getProductsList({ commit }) {
+      const products = await api.getProductsList();
+      commit('createProductList', products)
+    }
   },
   modules: {
   }

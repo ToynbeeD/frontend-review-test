@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  // абсолютно пустой стор, в котором даже нет никакого состояния. Либо Vuex убрать, либо использовать по назначению.
   state: {
   },
   mutations: {

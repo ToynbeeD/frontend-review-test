@@ -1,10 +1,15 @@
 <template>
+<!-- семантика, добавить теги ul и li -->
   <div class="product-list">
+    <!-- key для v-for!!! -->
     <div class="card" v-for="product in products" :style="{width: cardsWidth + '%'}">
+      <!-- по смыслу это заголовок карточки, тег h2-h6 -->
       <p class="card-title">{{ product.title }}</p>
+      <!-- img лучше оборачивать в контейнер -->
       <img class="card-image" :src="product.image" alt="">
       <p class="card-price">Цена: {{ product.price }} {{ currency }}</p>
 
+      <!-- это должна быть форма (form) и кнопка должна быть внутри формы. -->
       <div>
         <input type="number" ref="amount" :id="product.id">
         <span>кг</span>
@@ -13,6 +18,8 @@
       <button @click="addToCart(product)"> В корзину </button>
     </div>
   </div>
+
+  <!-- для card сделать отдельный компонент! -->
 </template>
 
 <script>
@@ -27,6 +34,7 @@ export default {
   },
   computed: {
     cardsWidth() {
+      // убрать и делать адаптив в css, используя @media!!!
       let width = window.innerWidth;
       let count = 1;
       if (width > '840px') {
@@ -40,14 +48,17 @@ export default {
   },
   methods: {
     startPricesMonitoring() {
+      // по заданию запрос должен идти каждые 2 секунды, сейчас одна
       setInterval(this.getList, 1000);
     },
     async getList() {
+      // неясно зачем здесь вообще нужен vuex для одно только action, если он есть, значит надо хранить данные там, а не в компонентах.
       let data = await this.$store.dispatch('getProductsList');
 
       this.products = data;
     },
     addToCart(product) {
+      // запутанно, делай проще))
       let amount = this.$refs.amount.find((input) => input.id === product.id).value;
 
       let data = {
@@ -68,7 +79,7 @@ export default {
   .product-list {
     padding: 10px;
   }
-
+  /* flex нужен */
   .card {
     display: inline-block;
     width: 100%;
